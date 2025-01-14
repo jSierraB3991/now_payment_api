@@ -34,7 +34,7 @@ func (HttpClient) Post(urlBase, uri, apiKey string, jsonData []byte, result inte
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode >= 200 || resp.StatusCode < 300 {
+	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
 		//body, _ := io.ReadAll(resp.Body)
 
 		//fmt.Println(resp)
@@ -47,7 +47,7 @@ func (HttpClient) Post(urlBase, uri, apiKey string, jsonData []byte, result inte
 			return err
 		}
 		log.Println(responseEror)
-		return errors.New(responseEror.MessageResponse)
+		return errors.New(responseEror.Message)
 	}
 
 }
