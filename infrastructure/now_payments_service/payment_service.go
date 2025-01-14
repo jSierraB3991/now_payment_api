@@ -1,7 +1,10 @@
 package nowpaymentsservice
 
 import (
+	"log"
+
 	nowpaymentsrepositoryinterface "github.com/jSierraB3991/now_payment_api/domain/now_payments_repository_interface"
+	nowpaymentsclient "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_client"
 	nowpaymentsrepository "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_repository"
 	"gorm.io/gorm"
 )
@@ -10,6 +13,7 @@ type NowPaymentService struct {
 	repository nowpaymentsrepositoryinterface.PaymentRepositoryInterface
 	apiKey     string
 	apiUrl     string
+	httpClient *nowpaymentsclient.HttpClient
 }
 
 func InitiateService(db *gorm.DB, nowPaymentApkiKey string) *NowPaymentService {
@@ -19,9 +23,13 @@ func InitiateService(db *gorm.DB, nowPaymentApkiKey string) *NowPaymentService {
 		repository: repo,
 		apiKey:     nowPaymentApkiKey,
 		apiUrl:     "https://api.nowpayments.io/v1",
+		httpClient: nowpaymentsclient.NewHttpClient(),
 	}
 }
 
 func (s *NowPaymentService) StartPayment() {
-	// Start payment logic
+	err := s.repository.RunMigrations()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
