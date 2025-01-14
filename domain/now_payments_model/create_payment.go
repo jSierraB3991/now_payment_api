@@ -7,8 +7,8 @@ import (
 )
 
 type NowPaymentCreatePayment struct {
-	gorm.DB
-	CreatePaymentId uint `gorm:"column:id:not null"`
+	gorm.Model
+	CreatePaymentId uint `gorm:"column:id;not null"`
 	UserId          uint `gorm:"column:user_id;not null"`
 
 	PaymentID              string    `gorm:"column:payment_id;not null"`
@@ -21,8 +21,8 @@ type NowPaymentCreatePayment struct {
 	OrderID                string    `gorm:"column:order_id;not null"`
 	OrderDescription       string    `gorm:"column:order_description;not null"`
 	IpnCallbackURL         string    `gorm:"column:ipn_callback_url;not null"`
-	CreatedAt              time.Time `gorm:"column:created_at;not null"`
-	UpdatedAt              time.Time `gorm:"column:updated_at;not null"`
+	CreatedAt              time.Time `gorm:"column:created_at_my;not null"`
+	UpdatedAt              time.Time `gorm:"column:updated_at_my;not null"`
 	PurchaseID             string    `gorm:"column:purchase_id;not null"`
 	AmountReceived         float32   `gorm:"column:amount_received;not null"`
 	PayinExtraID           string    `gorm:"column:payin_extra_id;not null"`
