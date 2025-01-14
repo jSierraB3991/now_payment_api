@@ -23,7 +23,7 @@ func (HttpClient) Post(urlBase, uri, apiKey string, jsonData []byte, result inte
 	}
 	req.Header.Set("Content-Type", "application/json")
 
-	req.Header.Add("x-api-key: ", apiKey)
+	req.Header.Set("x-api-key", apiKey)
 
 	// Enviar la solicitud
 	client := &http.Client{}

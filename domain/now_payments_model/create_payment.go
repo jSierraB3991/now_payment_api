@@ -7,7 +7,7 @@ import (
 )
 
 type NowPaymentCreatePayment struct {
-	gorm.DB
+	gorm.Model
 	CreatePaymentId uint `gorm:"column:id:not null"`
 	UserId          uint `gorm:"column:user_id;not null"`
 
