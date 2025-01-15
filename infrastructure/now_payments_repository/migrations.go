@@ -9,5 +9,6 @@ func (repo *Repository) RunMigrations() error {
 func (repo *Repository) runAutoMigrate() error {
 	return repo.db.AutoMigrate(
 		&nowpaymentsmodel.NowPaymentCreatePayment{},
+		&nowpaymentsmodel.NowPaymentCreateInvoice{},
 	)
 }
