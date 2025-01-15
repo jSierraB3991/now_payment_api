@@ -9,19 +9,19 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) CreatePayment(req nowpaymentsrequest.CreatePaymentRequest, userId uint) (*nowpaymentsresponse.CreatePaymentResponse, error) {
+func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRequest, userId uint) (*nowpaymentsresponse.CreateInvoiceResponse, error) {
 	jsonData, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
 	}
 
-	var result nowpaymentsresponse.CreatePaymentResponse
-	err = s.httpClient.Post(s.apiUrl, nowpaymentlibs.CREATE_PAYMENT_URL, s.apiKey, jsonData, &result)
+	var result nowpaymentsresponse.CreateInvoiceResponse
+	err = s.httpClient.Post(s.apiUrl, nowpaymentlibs.CREATE_INVOICE_URL, s.apiKey, jsonData, &result)
 	if err != nil {
 		return nil, err
 	}
-	data := nowpaymentsmapper.GetCreatePaymentByResponse(result, userId)
-	err = s.repository.SaveCreatePayment(&data)
+	data := nowpaymentsmapper.GetCreateInvoiceByResponse(result)
+	err = s.repository.SaveCreateInvoice(data)
 	if err != nil {
 		return nil, err
 	}

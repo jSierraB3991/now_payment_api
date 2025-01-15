@@ -5,7 +5,7 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func GetCreatePaymentByCreatePaymentResponse(data nowpaymentsresponse.CreatePaymentResponse, userId uint) nowpaymentsmodel.NowPaymentCreatePayment {
+func GetCreatePaymentByResponse(data nowpaymentsresponse.CreatePaymentResponse, userId uint) nowpaymentsmodel.NowPaymentCreatePayment {
 	return nowpaymentsmodel.NowPaymentCreatePayment{
 		PaymentID:              data.PaymentID,
 		PaymentStatus:          data.PaymentStatus,
