@@ -33,7 +33,10 @@ func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresp
 	result := resultPaymentsData.Data[0]
 
 	if result.PaymentId != 0 {
-		s.repository.UpdatePaymentIdInInvoiceId(invoiceId, result.PaymentId)
+		err = s.repository.UpdatePaymentIdInInvoiceId(invoiceId, result.PaymentId)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &result, nil
