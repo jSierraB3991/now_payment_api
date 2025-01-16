@@ -11,7 +11,7 @@ type GetPaymentStatusResponse struct {
 	PriceAmount      float32   `json:"price_amount"`
 	PriceCurrency    string    `json:"price_currency"`
 	PayAmount        float32   `json:"pay_amount"`
-	ActualPaid       string    `json:"actually_paid"`
+	ActualPaid       uint      `json:"actually_paid"`
 	PayCurrency      string    `json:"pay_currency"`
 	OrderId          *uint     `json:"order_id"`
 	OrderDescription *string   `json:"order_description"`
