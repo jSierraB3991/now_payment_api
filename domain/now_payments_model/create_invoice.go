@@ -9,6 +9,7 @@ import (
 type NowPaymentCreateInvoice struct {
 	gorm.Model
 	CreateInvoiceId  uint      `gorm:"column:id;not null"`
+	UserId           uint      `gorm:"column:user_id;not null"`
 	NowPaymentId     string    `gorm:"column:now_payment_id;not null"`
 	OrderID          string    `gorm:"column:order_id;not null"`
 	OrderDescription string    `gorm:"column:order_description;not null"`

@@ -10,9 +10,14 @@ func (repo *Repository) SaveCreateInvoice(createInvoice *nowpaymentsmodel.NowPay
 	return repo.db.Create(createInvoice).Error
 }
 
-func (repo *Repository) GetInvoicePagination(page *nowpaymentsmodel.Paggination) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error) {
+func (repo *Repository) GetInvoicePagination(page *nowpaymentsmodel.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error) {
 	var result []nowpaymentsmodel.NowPaymentCreateInvoice
-	args := []nowpaymentsmodel.PagginationParam{}
+	args := []nowpaymentsmodel.PagginationParam{
+		{
+			Where: "user_id = ?",
+			Data:  userId,
+		},
+	}
 	preloads := []nowpaymentsmodel.PreloadParams{}
 
 	err := repo.Paginate(&result, page, args, preloads)
