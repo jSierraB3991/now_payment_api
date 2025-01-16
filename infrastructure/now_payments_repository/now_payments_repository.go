@@ -29,7 +29,7 @@ func (repo *Repository) GetInvoicePagination(page *nowpaymentsmodel.Paggination,
 	return result, err
 }
 
-func (repo *Repository) UpdatePaymentIdInInvoiceId(invoiceId string, paymentId uint) error {
+func (repo *Repository) UpdatePaymentIdInInvoiceId(invoiceId string, paymentId uint, status nowpaymentlibs.CreateInvoiceStatus) error {
 	var invoiceData nowpaymentsmodel.NowPaymentCreateInvoice
 	err := repo.db.Where("now_payment_id = ?", invoiceId).Find(&invoiceData).Error
 	if err != nil {
@@ -37,5 +37,6 @@ func (repo *Repository) UpdatePaymentIdInInvoiceId(invoiceId string, paymentId u
 	}
 
 	invoiceData.NowPaymentPaymentId = paymentId
+	invoiceData.Status = status
 	return repo.db.Save(&invoiceData).Error
 }

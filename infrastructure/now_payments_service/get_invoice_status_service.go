@@ -33,7 +33,22 @@ func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresp
 	result := resultPaymentsData.Data[0]
 
 	if result.PaymentId != 0 {
-		err = s.repository.UpdatePaymentIdInInvoiceId(invoiceId, result.PaymentId)
+		status := func(status string) nowpaymentlibs.CreateInvoiceStatus {
+			switch status {
+			case "waiting":
+				return nowpaymentlibs.CREATE_INVOICE_STATUS_WAIT_PAY
+			case "confirming":
+				return nowpaymentlibs.CREATE_INVOICE_STATUS_CONFIRMING
+			case "confirmed":
+			case "finished":
+				return nowpaymentlibs.CREATE_INVOICE_STATUS_PAY
+			case "failed":
+			case "expired":
+				return nowpaymentlibs.CREATE_INVOICE_STATUS_CANCELL
+			}
+			return nowpaymentlibs.CREATE_INVOICE_STATUS_WAIT_PAY
+		}(result.PaymentStatus)
+		err = s.repository.UpdatePaymentIdInInvoiceId(invoiceId, result.PaymentId, status)
 		if err != nil {
 			return nil, err
 		}
