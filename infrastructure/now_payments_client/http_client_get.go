@@ -6,16 +6,22 @@ import (
 	"log"
 	"net/http"
 
+	nowpaymentsrequest "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_request"
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (HttpClient) Get(urlBase, uri, apiKey string, result interface{}) error {
+func (HttpClient) Get(urlBase, uri string, result interface{}, headers []nowpaymentsrequest.HeaderRequest) error {
 	req, err := http.NewRequest("GET", urlBase+uri, nil)
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("x-api-key", apiKey)
+
+	if headers != nil {
+		for _, v := range headers {
+			req.Header.Add(v.Key, v.Value)
+		}
+	}
 
 	// Enviar la solicitud
 	client := &http.Client{}

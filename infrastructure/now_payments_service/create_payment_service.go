@@ -15,8 +15,12 @@ func (s *NowPaymentService) CreatePayment(req nowpaymentsrequest.CreatePaymentRe
 		return nil, err
 	}
 
+	headers := []nowpaymentsrequest.HeaderRequest{{
+		Key:   "x-api-key",
+		Value: s.apiKey,
+	}}
 	var result nowpaymentsresponse.CreatePaymentResponse
-	err = s.httpClient.Post(s.apiUrl, nowpaymentlibs.CREATE_PAYMENT_URL, s.apiKey, jsonData, &result)
+	err = s.httpClient.Post(s.apiUrl, nowpaymentlibs.CREATE_PAYMENT_URL, jsonData, &result, headers)
 	if err != nil {
 		return nil, err
 	}
