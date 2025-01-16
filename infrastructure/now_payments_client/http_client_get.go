@@ -1,28 +1,20 @@
 package nowpaymentsclient
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
-	"io"
 	"log"
 	"net/http"
 
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (HttpClient) Post(urlBase, uri, apiKey string, jsonData []byte, result interface{}) error {
-	var bodyIoReader io.Reader
-	if jsonData != nil {
-		bodyIoReader = bytes.NewBuffer(jsonData)
-	}
-
-	req, err := http.NewRequest("POST", urlBase+uri, bodyIoReader)
+func (HttpClient) Get(urlBase, uri, apiKey string, result interface{}) error {
+	req, err := http.NewRequest("GET", urlBase+uri, nil)
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-
 	req.Header.Set("x-api-key", apiKey)
 
 	// Enviar la solicitud
@@ -49,4 +41,5 @@ func (HttpClient) Post(urlBase, uri, apiKey string, jsonData []byte, result inte
 		log.Println(responseEror)
 		return errors.New(responseEror.Message)
 	}
+
 }

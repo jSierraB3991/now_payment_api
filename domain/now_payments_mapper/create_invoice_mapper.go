@@ -5,10 +5,12 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func GetCreateInvoiceByResponse(data nowpaymentsresponse.CreateInvoiceResponse) *nowpaymentsmodel.NowPaymentCreateInvoice {
+func GetCreateInvoiceByResponse(data nowpaymentsresponse.CreateInvoiceResponse, userId uint) *nowpaymentsmodel.NowPaymentCreateInvoice {
 	return &nowpaymentsmodel.NowPaymentCreateInvoice{
-		NowPaymentId:     data.ID,
-		OrderID:          data.OrderID,
+		NowPaymentId: data.ID,
+		OrderID:      data.OrderID,
+		UserId:       userId,
+
 		OrderDescription: data.OrderDescription,
 		PriceAmount:      data.PriceAmount,
 		PriceCurrency:    data.PriceCurrency,

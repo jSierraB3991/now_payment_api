@@ -20,7 +20,7 @@ func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRe
 	if err != nil {
 		return nil, err
 	}
-	data := nowpaymentsmapper.GetCreateInvoiceByResponse(result)
+	data := nowpaymentsmapper.GetCreateInvoiceByResponse(result, userId)
 	err = s.repository.SaveCreateInvoice(data)
 	if err != nil {
 		return nil, err

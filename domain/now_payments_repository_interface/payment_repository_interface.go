@@ -6,5 +6,5 @@ type PaymentRepositoryInterface interface {
 	RunMigrations() error
 	SaveCreatePayment(createPayment *nowpaymentsmodel.NowPaymentCreatePayment) error
 	SaveCreateInvoice(createInvoice *nowpaymentsmodel.NowPaymentCreateInvoice) error
-	GetInvoicePagination(page *nowpaymentsmodel.Paggination) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
+	GetInvoicePagination(page *nowpaymentsmodel.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
 }

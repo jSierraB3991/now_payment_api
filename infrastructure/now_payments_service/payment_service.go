@@ -16,13 +16,13 @@ type NowPaymentService struct {
 	httpClient *nowpaymentsclient.HttpClient
 }
 
-func InitiateService(db *gorm.DB, nowPaymentApkiKey string) *NowPaymentService {
+func InitiateService(db *gorm.DB, nowPaymentApkiKey, apiUrl string) *NowPaymentService {
 	repo := nowpaymentsrepository.InitiateRepo(db)
 
 	return &NowPaymentService{
 		repository: repo,
 		apiKey:     nowPaymentApkiKey,
-		apiUrl:     "https://api.nowpayments.io/v1",
+		apiUrl:     apiUrl,
 		httpClient: nowpaymentsclient.NewHttpClient(),
 	}
 }
