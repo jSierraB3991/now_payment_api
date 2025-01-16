@@ -7,10 +7,6 @@ import (
 	"gorm.io/gorm"
 )
 
-func (repo *Repository) Paginate(value interface{}, page *nowpaymentsmodel.Paggination, args []nowpaymentsmodel.PagginationParam, preloads []nowpaymentsmodel.PreloadParams) error {
-	return repo.db.Scopes(repo.paginate_with_param(value, page, args, preloads)).Find(&value).Error
-}
-
 func (repo *Repository) paginate_with_param(value interface{}, page *nowpaymentsmodel.Paggination, args []nowpaymentsmodel.PagginationParam, preloads []nowpaymentsmodel.PreloadParams) func(db *gorm.DB) *gorm.DB {
 	var totalRows int64
 	accountData := repo.db.Model(value)
