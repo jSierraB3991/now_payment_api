@@ -28,3 +28,14 @@ func (repo *Repository) GetInvoicePagination(page *nowpaymentsmodel.Paggination,
 	err := repo.db.Scopes(repo.paginate_with_param(result, page, params, preloads)).Find(&result).Error
 	return result, err
 }
+
+func (repo *Repository) UpdatePaymentIdInInvoiceId(invoiceId string, paymentId uint) error {
+	var invoiceData nowpaymentsmodel.NowPaymentCreateInvoice
+	err := repo.db.Where("now_payment_id = ?").Find(&invoiceData).Error
+	if err != nil {
+		return err
+	}
+
+	invoiceData.NowPaymentPaymentId = paymentId
+	return repo.db.Save(&invoiceData).Error
+}

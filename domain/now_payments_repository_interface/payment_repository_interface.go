@@ -7,4 +7,5 @@ type PaymentRepositoryInterface interface {
 	SaveCreatePayment(createPayment *nowpaymentsmodel.NowPaymentCreatePayment) error
 	SaveCreateInvoice(createInvoice *nowpaymentsmodel.NowPaymentCreateInvoice) error
 	GetInvoicePagination(page *nowpaymentsmodel.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
+	UpdatePaymentIdInInvoiceId(invoiceId string, paymentId uint) error
 }
