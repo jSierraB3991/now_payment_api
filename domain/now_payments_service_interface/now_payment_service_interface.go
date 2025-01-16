@@ -11,5 +11,5 @@ type NowPaymentServiceInterface interface {
 	CreateInvoice(req nowpaymentsrequest.CreateInvoiceRequest, userId uint) (*nowpaymentsresponse.CreateInvoiceResponse, error)
 	GetInvoiceDataService(page, limit int, isAscendente bool, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
 	GetPaymentStatus(paymentId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
-	GetInvoiceStatus(invoiceId string) (*nowpaymentsresponse.GetPaymensDataStatusResponse, error)
+	GetInvoiceStatus(invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
 }
