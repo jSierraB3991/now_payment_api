@@ -103,6 +103,10 @@ if err != nil {
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+### Resumen de la licencia:
 
-[Add your license information here]
+- Puedes copiar, distribuir y modificar este proyecto siempre que mantengas la misma licencia.
+- Cualquier modificación realizada y distribuida debe estar bajo los mismos términos.
+- No hay garantías sobre el uso del software.
+
+Puedes encontrar una copia completa de la licencia en el archivo [LICENSE](./LICENSE) en el repositorio de este proyecto.
