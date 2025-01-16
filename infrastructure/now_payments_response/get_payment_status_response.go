@@ -26,3 +26,11 @@ type GetPaymentStatusResponse struct {
 	Type             string    `json:"type"`
 	PaymentExtraIds  []int64   `json:"payment_extra_ids"`
 }
+
+type GetPaymensDataStatusResponse struct {
+	Data       []GetPaymentStatusResponse `json:"data"`
+	Limit      int                        `json:"limit"`
+	Page       uint                       `json:"page"`
+	PagesCount uint                       `json:"pagesCount"`
+	Total      uint                       `json:"total"`
+}

@@ -1,12 +1,13 @@
 package nowpaymentsservice
 
 import (
+	nowpaymentlibs "github.com/jSierraB3991/now_payment_api/domain/now_payment_libs"
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
-	var result nowpaymentsresponse.GetPaymentStatusResponse
-	err := s.httpClient.Get(s.apiUrl, ""+invoiceId, s.apiKey, &result)
+func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresponse.GetPaymensDataStatusResponse, error) {
+	var result nowpaymentsresponse.GetPaymensDataStatusResponse
+	err := s.httpClient.Get(s.apiUrl, nowpaymentlibs.GET_PAYMENT_DATA_URL+"?invoiceId="+invoiceId, s.apiKey, &result)
 	if err != nil {
 		return nil, err
 	}
