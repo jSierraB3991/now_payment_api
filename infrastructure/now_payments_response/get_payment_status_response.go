@@ -3,7 +3,7 @@ package nowpaymentsresponse
 import "time"
 
 type GetPaymentStatusResponse struct {
-	PaymentId        string    `json:"payment_id"`
+	PaymentId        uint      `json:"payment_id"`
 	InvoiceId        *string   `json:"invoice_id"`
 	PaymentStatus    string    `json:"payment_status"`
 	PayAddress       string    `json:"pay_address"`
