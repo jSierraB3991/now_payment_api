@@ -8,10 +8,11 @@ import (
 	"log"
 	"net/http"
 
+	nowpaymentsrequest "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_request"
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (HttpClient) Post(urlBase, uri, apiKey string, jsonData []byte, result interface{}) error {
+func (HttpClient) Post(urlBase, uri string, jsonData []byte, result interface{}, headers []nowpaymentsrequest.HeaderRequest) error {
 	var bodyIoReader io.Reader
 	if jsonData != nil {
 		bodyIoReader = bytes.NewBuffer(jsonData)
@@ -23,7 +24,11 @@ func (HttpClient) Post(urlBase, uri, apiKey string, jsonData []byte, result inte
 	}
 	req.Header.Set("Content-Type", "application/json")
 
-	req.Header.Set("x-api-key", apiKey)
+	if headers != nil {
+		for _, v := range headers {
+			req.Header.Add(v.Key, v.Value)
+		}
+	}
 
 	// Enviar la solicitud
 	client := &http.Client{}
