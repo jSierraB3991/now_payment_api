@@ -3,6 +3,7 @@ package nowpaymentsservice
 import (
 	"encoding/json"
 
+	jsierralibs "github.com/jSierraB3991/jsierra-libs"
 	nowpaymentlibs "github.com/jSierraB3991/now_payment_api/domain/now_payment_libs"
 	nowpaymentsmapper "github.com/jSierraB3991/now_payment_api/domain/now_payments_mapper"
 	nowpaymentsrequest "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_request"
@@ -24,7 +25,13 @@ func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRe
 	if err != nil {
 		return nil, err
 	}
-	data := nowpaymentsmapper.GetCreateInvoiceByResponse(result, userId)
+
+	nowPaymentPaymentId, err := s.createPaymentByInvoice(result.ID)
+	if err != nil {
+		return nil, err
+	}
+	nowPaymentPaymentIdUint := jsierralibs.GetUNumberForString(*nowPaymentPaymentId)
+	data := nowpaymentsmapper.GetCreateInvoiceByResponse(result, userId, nowPaymentPaymentIdUint)
 	err = s.repository.SaveCreateInvoice(data)
 	if err != nil {
 		return nil, err
