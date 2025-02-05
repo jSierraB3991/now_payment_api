@@ -11,5 +11,4 @@ type PaymentRepositoryInterface interface {
 	SaveCreateInvoice(createInvoice *nowpaymentsmodel.NowPaymentCreateInvoice) error
 	GetInvoicePagination(page *nowpaymentsmodel.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
 	UpdatePaymentIdInInvoiceId(invoiceId string, paymentId uint, status nowpaymentlibs.CreateInvoiceStatus) error
-	GetInvoiceByUserAndOrder(userEmail, orderId string) (*string, error)
 }
