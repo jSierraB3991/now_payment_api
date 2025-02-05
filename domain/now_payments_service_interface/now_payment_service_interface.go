@@ -12,4 +12,7 @@ type NowPaymentServiceInterface interface {
 	GetInvoiceDataService(page, limit int, isAscendente bool, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
 	GetPaymentStatus(paymentId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
 	GetInvoiceStatus(invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
+
+	ValidateOnData(email, orderId string) (*string, error)
+	Start(investPays []string) error
 }
