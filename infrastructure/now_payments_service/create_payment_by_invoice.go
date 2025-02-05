@@ -8,9 +8,10 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) createPaymentByInvoice(invoiceId string) (*string, error) {
+func (s *NowPaymentService) createPaymentByInvoice(invoiceId, payCurrency string) (*string, error) {
 	req := nowpaymentsrequest.CreatePaymentByInvoiceRequest{
-		Iid: invoiceId,
+		Iid:         invoiceId,
+		PayCurrency: payCurrency,
 	}
 
 	jsonData, err := json.Marshal(req)

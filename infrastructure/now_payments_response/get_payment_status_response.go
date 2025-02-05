@@ -4,7 +4,7 @@ import "time"
 
 type GetPaymentStatusResponse struct {
 	PaymentId        uint      `json:"payment_id"`
-	InvoiceId        *uint     `json:"invoice_id"`
+	InvoiceId        *string   `json:"invoice_id"`
 	PaymentStatus    string    `json:"payment_status"`
 	PayAddress       string    `json:"pay_address"`
 	PayInExtraId     *string   `json:"payin_extra_id"`

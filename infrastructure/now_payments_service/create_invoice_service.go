@@ -10,7 +10,7 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRequest, userId uint) (*nowpaymentsresponse.CreateInvoiceResponse, error) {
+func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRequest, userId uint, payCurrency string) (*nowpaymentsresponse.CreateInvoiceResponse, error) {
 	jsonData, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRe
 		return nil, err
 	}
 
-	nowPaymentPaymentId, err := s.createPaymentByInvoice(result.ID)
+	nowPaymentPaymentId, err := s.createPaymentByInvoice(result.ID, payCurrency)
 	if err != nil {
 		return nil, err
 	}

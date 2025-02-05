@@ -7,11 +7,13 @@ import (
 )
 
 func (s *NowPaymentService) GetPaymentStatus(invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
-	var result nowpaymentsresponse.GetPaymentStatusResponse
+
 	headers := []nowpaymentsrequest.HeaderRequest{{
 		Key:   "x-api-key",
 		Value: s.apiKey,
 	}}
+
+	var result nowpaymentsresponse.GetPaymentStatusResponse
 	err := s.httpClient.Get(s.apiUrl, nowpaymentlibs.GET_PAYMENT_DATA_URL+invoiceId, &result, headers)
 	if err != nil {
 		return nil, err

@@ -8,7 +8,7 @@ import (
 
 type NowPaymentServiceInterface interface {
 	CreatePayment(req nowpaymentsrequest.CreatePaymentRequest, userId uint) (*nowpaymentsresponse.CreatePaymentResponse, error)
-	CreateInvoice(req nowpaymentsrequest.CreateInvoiceRequest, userId uint) (*nowpaymentsresponse.CreateInvoiceResponse, error)
+	CreateInvoice(req nowpaymentsrequest.CreateInvoiceRequest, userId uint, payCurrency string) (*nowpaymentsresponse.CreateInvoiceResponse, error)
 	GetInvoiceDataService(page, limit int, isAscendente bool, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
 	GetPaymentStatus(paymentId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
 	GetInvoiceStatus(invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
