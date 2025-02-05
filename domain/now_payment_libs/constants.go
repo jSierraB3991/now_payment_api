@@ -5,4 +5,11 @@ const (
 	CREATE_INVOICE_URL   = "/invoice"
 	GET_PAYMENT_DATA_URL = "/payment/"
 	AUTH_URL             = "/auth"
+
+	NOW_PAYMENTS_STATUS_RESULT_WAITING    string = "waiting"
+	NOW_PAYMENTS_STATUS_RESULT_CONFIRMING string = "confirming"
+	NOW_PAYMENTS_STATUS_RESULT_CONFIRMED  string = "confirmed"
+	NOW_PAYMENTS_STATUS_RESULT_FINISHED   string = "finished"
+	NOW_PAYMENTS_STATUS_RESULT_FAILED     string = "failed"
+	NOW_PAYMENTS_STATUS_RESULT_EXPIRED    string = "expired"
 )
