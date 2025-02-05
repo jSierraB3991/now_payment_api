@@ -35,6 +35,9 @@ func (repo *Repository) UpdatePaymentIdInInvoiceId(invoiceId string, paymentId u
 	if err != nil {
 		return err
 	}
+	if invoiceData.NowPaymentPaymentId == paymentId && invoiceData.Status == status {
+		return nil
+	}
 
 	invoiceData.NowPaymentPaymentId = paymentId
 	invoiceData.Status = status
