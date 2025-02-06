@@ -27,10 +27,10 @@ func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresp
 		return nil, err
 	}
 
-	if len(resultPaymentsData.Data) != 1 {
+	if len(resultPaymentsData.Data) <= 0 {
 		return nil, nowpaymentserrors.InvalidInvoicePaymentError{}
 	}
-	result := resultPaymentsData.Data[0]
+	result := s.GetNotWaitingResponse(resultPaymentsData.Data)
 
 	if result.PaymentId != 0 {
 		status := func(status string) nowpaymentlibs.CreateInvoiceStatus {
@@ -55,4 +55,35 @@ func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresp
 	}
 
 	return &result, nil
+}
+
+func (NowPaymentService) GetNotWaitingResponse(data []nowpaymentsresponse.GetPaymentStatusResponse) nowpaymentsresponse.GetPaymentStatusResponse {
+	if len(data) == 1 {
+		return data[0]
+	}
+
+	var preResult []nowpaymentsresponse.GetPaymentStatusResponse
+	for _, v := range data {
+		if v.PaymentStatus != "waiting" {
+			preResult = append(preResult, v)
+		}
+	}
+
+	if len(preResult) == 0 {
+		return data[0]
+	} else if len(preResult) == 1 {
+		return preResult[0]
+	}
+
+	var result nowpaymentsresponse.GetPaymentStatusResponse
+	for _, v := range preResult {
+		if v.PaymentStatus == "finished" || v.PaymentStatus == "confirmed" {
+			result = v
+			break
+		}
+	}
+	if result.PaymentId == 0 {
+		return preResult[1]
+	}
+	return result
 }
