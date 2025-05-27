@@ -14,4 +14,5 @@ type NowPaymentServiceInterface interface {
 	GetInvoiceDataService(ctx context.Context, page, limit int, isAscendente bool, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
 	GetPaymentStatus(ctx context.Context, paymentId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
 	GetInvoiceStatus(ctx context.Context, invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error)
+	GetInvoiceByOrderIdService(ctx context.Context, orderId string) (*nowpaymentsresponse.InvoiceResponse, error)
 }

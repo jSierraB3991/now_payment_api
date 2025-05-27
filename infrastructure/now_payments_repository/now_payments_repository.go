@@ -26,6 +26,20 @@ func (repo *Repository) SaveCreateInvoice(ctx context.Context, createInvoice *no
 	return db.Create(createInvoice).Error
 }
 
+func (repo *Repository) GetInvoiceByOrderId(ctx context.Context, orderId string) (*nowpaymentsmodel.NowPaymentCreateInvoice, error) {
+	db, err := repo.GetDb(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	var invoice nowpaymentsmodel.NowPaymentCreateInvoice
+	err = db.Where("order_id = ?", orderId).First(&invoice).Error
+	if err != nil {
+		return nil, err
+	}
+	return &invoice, nil
+}
+
 func (repo *Repository) GetInvoicePagination(ctx context.Context, page *jsierralibs.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error) {
 	db, err := repo.GetDb(ctx)
 	if err != nil {
