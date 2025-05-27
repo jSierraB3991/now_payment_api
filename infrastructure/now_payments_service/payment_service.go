@@ -31,6 +31,13 @@ func InitiateService(db *gorm.DB, nowPaymentApkiKey, apiUrl, userName, password 
 	}
 }
 
+func (s *NowPaymentService) StartPaymentWithOutSchema() {
+	err := s.repository.RunMigrations([]string{"public"})
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func (s *NowPaymentService) StartPayment(schemas []string) {
 	err := s.repository.RunMigrations(schemas)
 	if err != nil {
