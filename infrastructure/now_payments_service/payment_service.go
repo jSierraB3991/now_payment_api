@@ -31,8 +31,8 @@ func InitiateService(db *gorm.DB, nowPaymentApkiKey, apiUrl, userName, password 
 	}
 }
 
-func (s *NowPaymentService) StartPayment() {
-	err := s.repository.RunMigrations()
+func (s *NowPaymentService) StartPayment(schemas []string) {
+	err := s.repository.RunMigrations(schemas)
 	if err != nil {
 		log.Fatal(err)
 	}

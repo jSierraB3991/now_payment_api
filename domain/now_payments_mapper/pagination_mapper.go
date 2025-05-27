@@ -3,11 +3,11 @@ package nowpaymentsmapper
 import (
 	"strings"
 
-	nowpaymentsmodel "github.com/jSierraB3991/now_payment_api/domain/now_payments_model"
+	jsierralibs "github.com/jSierraB3991/jsierra-libs"
 )
 
-func PaginationReqToModel(limit, page int, sort, propSort string, dataForWhere interface{}) *nowpaymentsmodel.Paggination {
-	return &nowpaymentsmodel.Paggination{
+func PaginationReqToModel(limit, page int, sort, propSort string, dataForWhere interface{}) *jsierralibs.Paggination {
+	return &jsierralibs.Paggination{
 		Limit: limit,
 		Page:  page,
 		Sort:  GetSort(sort, propSort),

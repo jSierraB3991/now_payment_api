@@ -1,6 +1,7 @@
 package nowpaymentsservice
 
 import (
+	"context"
 	"encoding/json"
 
 	jsierralibs "github.com/jSierraB3991/jsierra-libs"
@@ -10,7 +11,7 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRequest, userId uint, payCurrency string) (*nowpaymentsresponse.CreateInvoiceResponse, error) {
+func (s *NowPaymentService) CreateInvoice(ctx context.Context, req nowpaymentsrequest.CreateInvoiceRequest, userId uint, payCurrency string) (*nowpaymentsresponse.CreateInvoiceResponse, error) {
 	jsonData, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -26,13 +27,13 @@ func (s *NowPaymentService) CreateInvoice(req nowpaymentsrequest.CreateInvoiceRe
 		return nil, err
 	}
 
-	nowPaymentPaymentId, err := s.createPaymentByInvoice(result.ID, payCurrency)
+	nowPaymentPaymentId, err := s.createPaymentByInvoice(ctx, result.ID, payCurrency)
 	if err != nil {
 		return nil, err
 	}
 	nowPaymentPaymentIdUint := jsierralibs.GetUNumberForString(*nowPaymentPaymentId)
 	data := nowpaymentsmapper.GetCreateInvoiceByResponse(result, userId, nowPaymentPaymentIdUint)
-	err = s.repository.SaveCreateInvoice(data)
+	err = s.repository.SaveCreateInvoice(ctx, data)
 	if err != nil {
 		return nil, err
 	}

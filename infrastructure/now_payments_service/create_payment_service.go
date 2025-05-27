@@ -1,6 +1,7 @@
 package nowpaymentsservice
 
 import (
+	"context"
 	"encoding/json"
 
 	nowpaymentlibs "github.com/jSierraB3991/now_payment_api/domain/now_payment_libs"
@@ -9,7 +10,7 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) CreatePayment(req nowpaymentsrequest.CreatePaymentRequest, userId uint) (*nowpaymentsresponse.CreatePaymentResponse, error) {
+func (s *NowPaymentService) CreatePayment(ctx context.Context, req nowpaymentsrequest.CreatePaymentRequest, userId uint) (*nowpaymentsresponse.CreatePaymentResponse, error) {
 	jsonData, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -25,7 +26,7 @@ func (s *NowPaymentService) CreatePayment(req nowpaymentsrequest.CreatePaymentRe
 		return nil, err
 	}
 	data := nowpaymentsmapper.GetCreatePaymentByResponse(result, userId)
-	err = s.repository.SaveCreatePayment(&data)
+	err = s.repository.SaveCreatePayment(ctx, &data)
 	if err != nil {
 		return nil, err
 	}

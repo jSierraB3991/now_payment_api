@@ -1,13 +1,15 @@
 package nowpaymentsservice
 
 import (
+	"context"
+
 	nowpaymentlibs "github.com/jSierraB3991/now_payment_api/domain/now_payment_libs"
 	nowpaymentserrors "github.com/jSierraB3991/now_payment_api/domain/now_payments_errors"
 	nowpaymentsrequest "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_request"
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
+func (s *NowPaymentService) GetInvoiceStatus(ctx context.Context, invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
 	token, err := s.AuthPaymentService()
 	if err != nil {
 		return nil, err
@@ -48,7 +50,7 @@ func (s *NowPaymentService) GetInvoiceStatus(invoiceId string) (*nowpaymentsresp
 			}
 			return nowpaymentlibs.CREATE_INVOICE_STATUS_WAIT_PAY
 		}(result.PaymentStatus)
-		err = s.repository.UpdatePaymentIdInInvoiceId(invoiceId, result.PaymentId, status)
+		err = s.repository.UpdatePaymentIdInInvoiceId(ctx, invoiceId, result.PaymentId, status)
 		if err != nil {
 			return nil, err
 		}

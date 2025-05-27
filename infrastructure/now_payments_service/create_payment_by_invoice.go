@@ -1,6 +1,7 @@
 package nowpaymentsservice
 
 import (
+	"context"
 	"encoding/json"
 
 	nowpaymentlibs "github.com/jSierraB3991/now_payment_api/domain/now_payment_libs"
@@ -8,7 +9,7 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) createPaymentByInvoice(invoiceId, payCurrency string) (*string, error) {
+func (s *NowPaymentService) createPaymentByInvoice(ctx context.Context, invoiceId, payCurrency string) (*string, error) {
 	req := nowpaymentsrequest.CreatePaymentByInvoiceRequest{
 		Iid:         invoiceId,
 		PayCurrency: payCurrency,

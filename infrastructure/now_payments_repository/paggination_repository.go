@@ -1,15 +1,28 @@
 package nowpaymentsrepository
 
 import (
+	"context"
 	"math"
 
-	nowpaymentsmodel "github.com/jSierraB3991/now_payment_api/domain/now_payments_model"
+	jsierralibs "github.com/jSierraB3991/jsierra-libs"
 	"gorm.io/gorm"
 )
 
-func (repo *Repository) paginate_with_param(value interface{}, page *nowpaymentsmodel.Paggination, args []nowpaymentsmodel.PagginationParam, preloads []nowpaymentsmodel.PreloadParams) func(db *gorm.DB) *gorm.DB {
+func (repo *Repository) paginate_with_param(ctx context.Context, value interface{}, page *jsierralibs.Paggination,
+	args []jsierralibs.PagginationParam, preloads []jsierralibs.PreloadParams) func(db *gorm.DB) *gorm.DB {
+
+	db, _ := repo.GetDb(ctx)
 	var totalRows int64
-	accountData := repo.db.Model(value)
+	accountData := db.Model(value)
+	if len(preloads) > 0 {
+		for _, arg := range preloads {
+			if arg.PagginationParam.Where == "" {
+				accountData.Preload(arg.Preload)
+			} else {
+				accountData.Preload(arg.Preload, arg.PagginationParam.Where, arg.PagginationParam.Data)
+			}
+		}
+	}
 	if len(args) > 0 {
 		for _, arg := range args {
 			accountData.Where(arg.Where, arg.Data)

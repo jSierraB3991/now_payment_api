@@ -1,37 +1,58 @@
 package nowpaymentsrepository
 
 import (
+	"context"
+
+	jsierralibs "github.com/jSierraB3991/jsierra-libs"
 	nowpaymentlibs "github.com/jSierraB3991/now_payment_api/domain/now_payment_libs"
 	nowpaymentsmodel "github.com/jSierraB3991/now_payment_api/domain/now_payments_model"
 )
 
-func (repo *Repository) SaveCreatePayment(createPayment *nowpaymentsmodel.NowPaymentCreatePayment) error {
+func (repo *Repository) SaveCreatePayment(ctx context.Context, createPayment *nowpaymentsmodel.NowPaymentCreatePayment) error {
+	db, err := repo.GetDb(ctx)
+	if err != nil {
+		return err
+	}
 	createPayment.Status = nowpaymentlibs.CREATE_INVOICE_STATUS_WAIT_PAY
-	return repo.db.Create(createPayment).Error
+	return db.Create(createPayment).Error
 }
 
-func (repo *Repository) SaveCreateInvoice(createInvoice *nowpaymentsmodel.NowPaymentCreateInvoice) error {
+func (repo *Repository) SaveCreateInvoice(ctx context.Context, createInvoice *nowpaymentsmodel.NowPaymentCreateInvoice) error {
+	db, err := repo.GetDb(ctx)
+	if err != nil {
+		return err
+	}
 	createInvoice.Status = nowpaymentlibs.CREATE_INVOICE_STATUS_WAIT_PAY
-	return repo.db.Create(createInvoice).Error
+	return db.Create(createInvoice).Error
 }
 
-func (repo *Repository) GetInvoicePagination(page *nowpaymentsmodel.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error) {
+func (repo *Repository) GetInvoicePagination(ctx context.Context, page *jsierralibs.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error) {
+	db, err := repo.GetDb(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	var result []nowpaymentsmodel.NowPaymentCreateInvoice
-	params := []nowpaymentsmodel.PagginationParam{
+	params := []jsierralibs.PagginationParam{
 		{
 			Where: "user_id = ?",
 			Data:  userId,
 		},
 	}
-	preloads := []nowpaymentsmodel.PreloadParams{}
+	preloads := []jsierralibs.PreloadParams{}
 
-	err := repo.db.Scopes(repo.paginate_with_param(result, page, params, preloads)).Find(&result).Error
+	err = db.Scopes(repo.paginate_with_param(ctx, result, page, params, preloads)).Find(&result).Error
 	return result, err
 }
 
-func (repo *Repository) UpdatePaymentIdInInvoiceId(invoiceId string, paymentId uint, status nowpaymentlibs.CreateInvoiceStatus) error {
+func (repo *Repository) UpdatePaymentIdInInvoiceId(ctx context.Context, invoiceId string, paymentId uint, status nowpaymentlibs.CreateInvoiceStatus) error {
+	db, err := repo.GetDb(ctx)
+	if err != nil {
+		return err
+	}
+
 	var invoiceData nowpaymentsmodel.NowPaymentCreateInvoice
-	err := repo.db.Where("now_payment_id = ?", invoiceId).Find(&invoiceData).Error
+	err = db.Where("now_payment_id = ?", invoiceId).Find(&invoiceData).Error
 	if err != nil {
 		return err
 	}
