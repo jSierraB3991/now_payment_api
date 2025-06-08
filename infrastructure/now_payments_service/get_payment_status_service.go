@@ -8,11 +8,11 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) GetPaymentStatus(ctx context.Context, invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
+func (s *NowPaymentService) GetPaymentStatus(ctx context.Context, invoiceId, apiKey string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
 
 	headers := []nowpaymentsrequest.HeaderRequest{{
 		Key:   "x-api-key",
-		Value: s.apiKey,
+		Value: apiKey,
 	}}
 
 	var result nowpaymentsresponse.GetPaymentStatusResponse

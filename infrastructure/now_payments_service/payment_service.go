@@ -11,23 +11,17 @@ import (
 
 type NowPaymentService struct {
 	repository nowpaymentsrepositoryinterface.PaymentRepositoryInterface
-	apiKey     string
 	apiUrl     string
 	httpClient *nowpaymentsclient.HttpClient
-	UserName   string
-	Password   string
 }
 
-func InitiateService(db *gorm.DB, nowPaymentApkiKey, apiUrl, userName, password string) *NowPaymentService {
+func InitiateService(db *gorm.DB, apiUrl string) *NowPaymentService {
 	repo := nowpaymentsrepository.InitiateRepo(db)
 
 	return &NowPaymentService{
 		repository: repo,
-		apiKey:     nowPaymentApkiKey,
 		apiUrl:     apiUrl,
 		httpClient: nowpaymentsclient.NewHttpClient(),
-		UserName:   userName,
-		Password:   password,
 	}
 }
 

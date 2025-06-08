@@ -9,8 +9,8 @@ import (
 	nowpaymentsresponse "github.com/jSierraB3991/now_payment_api/infrastructure/now_payments_response"
 )
 
-func (s *NowPaymentService) GetInvoiceStatus(ctx context.Context, invoiceId string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
-	token, err := s.AuthPaymentService()
+func (s *NowPaymentService) GetInvoiceStatus(ctx context.Context, invoiceId, userName, password, apiKey string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
+	token, err := s.AuthPaymentService(userName, password, apiKey)
 	if err != nil {
 		return nil, err
 	}
@@ -20,7 +20,7 @@ func (s *NowPaymentService) GetInvoiceStatus(ctx context.Context, invoiceId stri
 		Value: "Bearer " + *token,
 	}, {
 		Key:   "x-api-key",
-		Value: s.apiKey,
+		Value: apiKey,
 	}}
 
 	var resultPaymentsData nowpaymentsresponse.GetPaymensDataStatusResponse
