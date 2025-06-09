@@ -51,7 +51,11 @@ func (HttpClient) Post(urlBase, uri string, jsonData []byte, result interface{},
 		if err != nil {
 			return err
 		}
+		errorString := responseEror.Message
+		if errorString == "" {
+			errorString = responseEror.Error
+		}
 		log.Println(responseEror)
-		return errors.New(responseEror.Message)
+		return errors.New(errorString)
 	}
 }

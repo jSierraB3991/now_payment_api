@@ -44,8 +44,12 @@ func (HttpClient) Get(urlBase, uri string, result interface{}, headers []nowpaym
 		if err != nil {
 			return err
 		}
+		errorString := responseEror.Message
+		if errorString == "" {
+			errorString = responseEror.Error
+		}
 		log.Println(responseEror)
-		return errors.New(responseEror.Message)
+		return errors.New(errorString)
 	}
 
 }
