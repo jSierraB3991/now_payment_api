@@ -10,21 +10,13 @@ import (
 )
 
 func (s *NowPaymentService) GetInvoiceStatus(ctx context.Context, invoiceId, userName, password, apiKey string) (*nowpaymentsresponse.GetPaymentStatusResponse, error) {
-	token, err := s.AuthPaymentService(userName, password, apiKey)
-	if err != nil {
-		return nil, err
-	}
-
 	headers := []nowpaymentsrequest.HeaderRequest{{
-		Key:   "Authorization",
-		Value: "Bearer " + *token,
-	}, {
 		Key:   "x-api-key",
 		Value: apiKey,
 	}}
 
 	var resultPaymentsData nowpaymentsresponse.GetPaymensDataStatusResponse
-	err = s.httpClient.Get(s.apiUrl, nowpaymentlibs.GET_PAYMENT_DATA_URL+"?invoiceId="+invoiceId, &resultPaymentsData, headers)
+	err := s.httpClient.Get(s.apiUrl, nowpaymentlibs.GET_PAYMENT_DATA_URL+invoiceId, &resultPaymentsData, headers)
 	if err != nil {
 		return nil, err
 	}
