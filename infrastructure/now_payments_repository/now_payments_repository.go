@@ -50,7 +50,7 @@ func (repo *Repository) GetInvoicePagination(ctx context.Context, page *jsierral
 	params := []jsierralibs.PagginationParam{
 		{
 			Where: "user_id = ?",
-			Data:  userId,
+			Data:  []interface{}{userId},
 		},
 	}
 	preloads := []jsierralibs.PreloadParams{}

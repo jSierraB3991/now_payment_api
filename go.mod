@@ -3,7 +3,7 @@ module github.com/jSierraB3991/now_payment_api
 go 1.23.4
 
 require (
-	github.com/jSierraB3991/jsierra-libs v0.4.5
+	github.com/jSierraB3991/jsierra-libs v0.4.7
 	gorm.io/gorm v1.30.0
 )
 
