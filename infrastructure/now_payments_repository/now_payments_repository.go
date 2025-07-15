@@ -40,19 +40,13 @@ func (repo *Repository) GetInvoiceByOrderId(ctx context.Context, orderId string)
 	return &invoice, nil
 }
 
-func (repo *Repository) GetInvoicePagination(ctx context.Context, page *jsierralibs.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error) {
+func (repo *Repository) GetInvoicePagination(ctx context.Context, page *jsierralibs.Paggination, params []jsierralibs.PagginationParam) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error) {
 	db, err := repo.GetDb(ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	var result []nowpaymentsmodel.NowPaymentCreateInvoice
-	params := []jsierralibs.PagginationParam{
-		{
-			Where: "user_id = ?",
-			Data:  []interface{}{userId},
-		},
-	}
 	preloads := []jsierralibs.PreloadParams{}
 
 	err = db.Scopes(repo.paginate_with_param(ctx, result, page, params, preloads)).Find(&result).Error

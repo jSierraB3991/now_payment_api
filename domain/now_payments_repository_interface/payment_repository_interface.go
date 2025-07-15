@@ -13,6 +13,6 @@ type PaymentRepositoryInterface interface {
 	SaveCreatePayment(ctx context.Context, createPayment *nowpaymentsmodel.NowPaymentCreatePayment) error
 	SaveCreateInvoice(ctx context.Context, createInvoice *nowpaymentsmodel.NowPaymentCreateInvoice) error
 	GetInvoiceByOrderId(ctx context.Context, orderId string) (*nowpaymentsmodel.NowPaymentCreateInvoice, error)
-	GetInvoicePagination(ctx context.Context, page *jsierralibs.Paggination, userId uint) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
+	GetInvoicePagination(ctx context.Context, page *jsierralibs.Paggination, params []jsierralibs.PagginationParam) ([]nowpaymentsmodel.NowPaymentCreateInvoice, error)
 	UpdatePaymentIdInInvoiceId(ctx context.Context, invoiceId string, paymentId uint, status nowpaymentlibs.CreateInvoiceStatus) error
 }
