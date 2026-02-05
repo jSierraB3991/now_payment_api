@@ -34,4 +34,5 @@ type NowPaymentCreatePayment struct {
 	BurningPercent         string                             `gorm:"column:burning_percent;not null"`
 	ExpirationEstimateDate time.Time                          `gorm:"column:expiration_estimate_date;not null"`
 	Status                 nowpaymentlibs.CreateInvoiceStatus `gorm:"column:status_pay;not null;default:'CREATE_INVOICE_STATUS_WAIT_PAY'"`
+	ValuePaymentUsd        *float32                           `gorm:"column:value_payment_usd"`
 }

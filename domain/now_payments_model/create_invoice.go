@@ -25,4 +25,6 @@ type NowPaymentCreateInvoice struct {
 	UpdatedAtMy         time.Time                          `gorm:"column:update_at_my;not null"`
 	Status              nowpaymentlibs.CreateInvoiceStatus `gorm:"column:status_pay;not null;default:'CREATE_INVOICE_STATUS_WAIT_PAY'"`
 	NowPaymentPaymentId uint                               `gorm:"column:now_payment_payment_id"`
+
+	ValueInvoiceUsd *float32 `gorm:"column:value_invoice_usd"`
 }
