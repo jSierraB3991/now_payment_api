@@ -5,7 +5,7 @@ go 1.24.0
 toolchain go1.24.12
 
 require (
-	github.com/jSierraB3991/jsierra-libs v0.6.5
+	github.com/jSierraB3991/jsierra-libs v0.6.6
 	gorm.io/gorm v1.31.1
 )
 
